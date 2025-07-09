@@ -80,5 +80,3 @@ def split_nodes_link(old_nodes):
             new_nodes.append(TextNode(original_text, TextType.TEXT))
     return new_nodes
 
-def markdown_to_blocks(markdown):
-    return [block.strip() for block in markdown.split('\n\n') if block.strip()]
