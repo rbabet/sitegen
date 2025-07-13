@@ -23,5 +23,17 @@ def generate_page(from_path, template_path, dest_path):
     with open(dest_path, 'w') as target_file:
         target_file.write(template_lines)
 
+def generate_pages_recursive(dir_path_content, template_path, dest_dir_path):
+    cur_dir = os.listdir(dir_path_content)
+    for item in cur_dir:
+        new_source = os.path.join(dir_path_content, item)
+        new_dest = os.path.join(dest_dir_path, item)
+        if os.path.isfile(new_source):
+            if new_source.endswith(".md"):
+                new_dest = os.path.splitext(new_dest)[0] + ".html"
+                generate_page(new_source, template_path, new_dest)
+        else:
+            generate_pages_recursive(new_source, template_path, new_dest)
+
 
     

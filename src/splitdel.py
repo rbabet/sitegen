@@ -19,12 +19,14 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type):
             splits = node.text.split(delimiter)
             if len(splits) % 2 == 0:
                 raise Exception ("invalid Markdown syntax")
-            elif len(splits) == 1:
-                result.append(node)
             else:
-                result.append(TextNode(splits[0], TextType.TEXT))
-                result.append(TextNode(splits[1], text_type))
-                result.append(TextNode(splits[2], TextType.TEXT))
+                for i in range(len(splits)):
+                    if splits[i] == "":
+                        continue
+                    if i %2 == 0:
+                        result.append(TextNode(splits[i], TextType.TEXT))
+                    else:
+                        result.append(TextNode(splits[i], text_type))
     return result
 
 def split_nodes_image(old_nodes):
